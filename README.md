@@ -21,6 +21,10 @@ The Javascript functions can be called directly from your spreadsheet. For examp
 
 	=walletReceived("18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW")
 
+To compute your projected earnings per day at the current difficulty, call the following with your hash rate in THs:
+
+	=btcEarningsPerTHsPerDay(hashrate)
+
 Also, Google has built in support for Bitcoin currency conversion, like so:
 
 	=GoogleFinance("CURRENCY:BTCUSD")
