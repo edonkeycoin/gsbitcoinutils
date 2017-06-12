@@ -36,3 +36,9 @@ Also, Google has built in support for Bitcoin currency conversion, like so:
 Since Google doesn't currently support LTC, you can paste the following into a cell to get the current LTC conversion rate from GDAX:
 
 	=IMPORTXML("https://bitinfocharts.com/markets/gdax/ltc-usd-1m.html", "//*[@itemprop='price']")
+
+## Troubleshooting
+
+Most of the time this scripted automation approach works well. But to get updated information you may have to refresh your spreadsheet in your browser.
+
+Every once in a while something gets "stuck" (maybe some Google caching algorithm) and fresh data stops arriving. Try making a meaningless edit (which you and undo) in order to get it unstuck.
