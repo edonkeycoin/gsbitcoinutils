@@ -7,7 +7,7 @@ Cryptocurrency related Javascript utilities that can be used in Google Sheets sp
 
 ## Introduction
 
-I use Google Sheets to keep track of my mining and other Bitcoin investments because it provides a mechanism to automate the spreadsheets via simple scripting. My spreadsheets gather the received Bitcoin coming in to my mining addresses and include that revenue in the ROI calculation. 
+I use Google Sheets to keep track of my mining and other Bitcoin investments because it provides a mechanism to automate the spreadsheets via simple scripting. My spreadsheets gather the value of received Bitcoin coming in to my mining addresses and include that revenue in an ROI calculation. 
 
 Another advantage of Google Sheets is that supports BTC to USD rate conversion. I had to add LTC to USD (via GDAX), because Google doesn't support LTC yet.
 
