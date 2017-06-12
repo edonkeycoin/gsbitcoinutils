@@ -9,7 +9,9 @@ Cryptocurrency related Javascript utilities that can be used in GoogleSheets spr
 
 I use Google Sheets to keep track of my mining and other Bitcoin investments because it provides a mechanism to automate the spreadsheets via simple scripting. My spreadsheets gather the received Bitcoin coming in to my mining addresses and include that revenue in the ROI calculation. Also, Google supports BTC to USD rate conversion. I had to add LTC, because they don't support it yet.
 
+The script here isn't particularly original. Also much of this info can be found by Google searching. But in case anyone finds it helpful, I'm including the formulas and scripts that I'm using for my BTC spreadsheets.
 
+Originally I tried using the API provided by blockchain.info, because I found a script example using their API. But I started getting errors indicating that the endpoint had been used too much, or something to that effect. So I switched to blockr.io and haven't had a problem.
 
 ## Installation
 
