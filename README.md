@@ -41,4 +41,4 @@ Since Google doesn't currently support LTC, you can paste the following into a c
 
 Most of the time this scripted automation approach works well. But to get updated information you may have to refresh your spreadsheet in your browser.
 
-Every once in a while something gets "stuck" (maybe some Google caching algorithm) and fresh data stops arriving. Try making a meaningless edit (which you and undo) in order to get it unstuck.
+Every once in a while something gets "stuck" (maybe some Google caching algorithm) and fresh data stops arriving. Try making a meaningless edit (which you can undo) in order to get it unstuck.
