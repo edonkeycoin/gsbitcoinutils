@@ -1,7 +1,7 @@
 # gsbitcoinutils
 Cryptocurrency related Javascript utilities that can be used in Google Sheets spreadsheets
 
-## By edonkey:	June 12, 2015
+## By edonkey:	June 12, 2017
 ## Donations:  	18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW
 
 
