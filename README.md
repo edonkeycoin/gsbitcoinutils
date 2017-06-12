@@ -11,7 +11,7 @@ I use Google Sheets to keep track of my mining and other Bitcoin investments bec
 
 Another advantage of Google Sheets is that supports BTC to USD rate conversion. I had to add LTC to USD (via GDAX), because Google doesn't support LTC yet.
 
-The script here isn't particularly original. Also much of this info can be found by Google searching. But in case anyone finds it helpful, I'm including the formulas and scripts that I'm using for my BTC spreadsheets.
+The script here isn't particularly original. Much of this info can be found by Google searching. But in case anyone finds it helpful, I'm including the formulas and scripts that I'm using for my BTC and LTC spreadsheets.
 
 Originally I tried using the API provided by blockchain.info, because I found a script example using their API. But I started getting errors indicating that the endpoint had been used too much, or something to that effect. So I switched to blockr.io and haven't had a problem.
 
