@@ -17,7 +17,9 @@ Originally I tried using the API provided by blockchain.info, because I found a 
 
 ## Upcoming changes
 
-Lately though blockr.io has been very slow, so I'm planning on testing blockchain.info again, but with an API key to get around the request limiter. If they provide me with a key, I'll create an updated script that demonstrates their API (you'll have to obtain your own API key).
+Lately blockr.io has been very slow, causing big delays when updating my spreadsheets. Therefore I'm planning on testing blockchain.info again, but with an API key to get around the request limiter. 
+
+If they provide me with a key, I'll create an version of the script that demonstrates their API (you'll have to obtain your own API key).
 
 ## Installation
 
