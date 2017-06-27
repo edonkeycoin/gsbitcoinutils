@@ -21,6 +21,8 @@ Lately though blockr.io has been very slow, causing big delays when updating my 
 
 To that end, I've requested an API key from blockchain.info. If they provide me with a key, I'll create an version of the script that demonstrates their API (you'll have to obtain your own API key to use this updated script).
 
+UPDATE: blockchain.info refused my request for an API key, with no explaination. I guess I'll never be using their service...
+
 ## Installation
 
 To use the scripts, go to the Tools -> Script editor... page for your Google Sheets spreadsheet and paste the script code and save it. Then you can go back to the spreadsheet and use the script functions.
