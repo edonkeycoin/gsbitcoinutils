@@ -17,11 +17,11 @@ The script here isn't particularly original. Much of this info can be found by G
 
 Originally I tried using the API provided by blockchain.info, because I found a script example using their API. But I started getting errors indicating that the endpoint had been used too much, or something to that effect. So I switched to blockr.io and haven't had a problem.
 
-Lately though blockr.io has been very slow, causing big delays when updating my spreadsheets. Therefore I'm planning on testing blockchain.info again, but with an API key to get around the request limiter. 
+But after a while blockr.io became very slow, causing big delays when updating my spreadsheets. Then they stopped updating their data. They closed up shop on September 4, 2017.
 
-To that end, I've requested an API key from blockchain.info. If they provide me with a key, I'll create an version of the script that demonstrates their API (you'll have to obtain your own API key to use this updated script).
+The result is that I need a new API. Blockchain.info refused my request for an API key, with no explaination. I guess I'll never be using their service. 
 
-UPDATE: blockchain.info refused my request for an API key, with no explaination. I guess I'll never be using their service...
+Currently I've moved to blockcypher.com for address information, and a combination of blockexplorer.com and explorer.litecoin.net for obtaining the current difficulty. Hopefully this will last for a while.
 
 ## Installation
 
