@@ -9,6 +9,11 @@
  Donations: 18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW
  */
 
+// Get a blockcypher.com token and set it here.
+// For info on their rates and limitations, see this page:
+//	https://www.blockcypher.com/dev/bitcoin/#rate-limits-and-tokens
+var gApiToken = ""
+
 // Warning! blockr.io has closed down so this function doesn't work.
 // Download the JSON from the specified URL and parse it
 function getParsedJsonDataBlockr(url)
@@ -72,6 +77,13 @@ function getCoinAddressInfoJson(coin, address)
 	// blockr.io has closed down.
 	//var url = "http://" + coin + ".blockr.io/api/v1/address/info/" + address
 	var url = "https://api.blockcypher.com/v1/" + coin + "/main/addrs/" + address + "/balance"
+	
+	// If an API token was defined, use it here
+	if (gApiToken != "")
+	{
+		url += "?token=" + gApiToken
+	}
+	
 	var data = getParsedJsonData(url)
 	return data
 }
@@ -186,3 +198,4 @@ function test()
 	// Blocks if Safari popups blocked
 	//Browser.msgBox(received)
 }
+
