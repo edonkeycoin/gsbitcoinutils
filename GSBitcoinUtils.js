@@ -4,36 +4,79 @@
  
  Written by edonkey, June 11, 2017
  
+ 2017-09-03: Changed to use blockcypher.com since blockr.io closed.
+ 
  Donations: 18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW
  */
 
+// Warning! blockr.io has closed down so this function doesn't work.
 // Download the JSON from the specified URL and parse it
-function getParsedJsonData(url)
+function getParsedJsonDataBlockr(url)
 {
-	var response = UrlFetchApp.fetch(url);
-	var json = response.getContentText();
-	var parsed = JSON.parse(json);
+	var response = UrlFetchApp.fetch(url)
+	var json = response.getContentText()
+	var parsed = JSON.parse(json)
 	var data = parsed.data
 	return data
 }
 
-// Use blockr.io to get info about a coin
-function getCoinInfoJson(coin)
+// Download the JSON from the specified URL and parse it
+function getParsedJsonData(url)
 {
-	var url = "http://" + coin + ".blockr.io/api/v1/coin/info";
-	var data = getParsedJsonData(url);
+	var response = UrlFetchApp.fetch(url)
+	var json = response.getContentText()
+	var parsed = JSON.parse(json)
+	return parsed
+}
+
+// Warning! blockr.io has closed down so this function doesn't work.
+// Get info about a coin
+function getCoinInfoJsonBlockr(coin)
+{
+	var url = "http://" + coin + ".blockr.io/api/v1/coin/info"
+	var data = getParsedJsonData(url)
 	return data
 }
 
-// Use blockr.io to receive JSON info for a given coin address
+// Warning! blockr.io has closed down so we can't use this any more
+function getCoinDifficultyBlockr(coin)
+{
+	var data = getCoinInfoJsonBlockr(coin)
+	var difficulty = data.last_block.difficulty
+	return difficulty
+}
+
+// Return the difficulty for the spedified coin. This used to be easier with 
+// blockr.io. Now it's a bit of a hack because we have to use multiple block
+// explorers with  different interfaces.
+function getCoinDifficulty(coin)
+{
+	var difficulty = 0
+	if (coin == "btc")
+	{
+		var data = getParsedJsonData("http://blockexplorer.com/q/getdifficulty")
+		difficulty = data.difficulty
+	}
+	else if (coin == "ltc")
+	{
+		var response = UrlFetchApp.fetch("http://explorer.litecoin.net/chain/Litecoin/q/getdifficulty")
+		difficulty = parseFloat(response.getContentText())
+	}
+	
+	return difficulty
+}
+
+// Get JSON info for a given coin address
 function getCoinAddressInfoJson(coin, address)
 {
-	var url = "http://" + coin + ".blockr.io/api/v1/address/info/" + address;
-	var data = getParsedJsonData(url);
+	// blockr.io has closed down.
+	//var url = "http://" + coin + ".blockr.io/api/v1/address/info/" + address
+	var url = "https://api.blockcypher.com/v1/" + coin + "/main/addrs/" + address + "/balance"
+	var data = getParsedJsonData(url)
 	return data
 }
 
-// Use blockr.io to receive JSON info for a given bitcoin address
+// Get JSON info for a given bitcoin address
 function getAddressInfoJson(address)
 {
 	return getCoinAddressInfoJson("btc", address)
@@ -43,17 +86,20 @@ function getAddressInfoJson(address)
 function walletReceived(address)
 {
 	var data = getAddressInfoJson(address)
-	return data.totalreceived;
+	var totalReceived = data.total_received
+	if (0 != totalReceived)
+		totalReceived /= 100000000
+	return totalReceived
 }
 
 // Return the total transactions for a bitcoin address
 function walletNumTransactions(address)
 {
 	var data = getAddressInfoJson(address)
-	return data.nb_txs;
+	return data.n_tx
 }
 
-// Use blockr.io to receive JSON info for a given bitcoin address
+// Get JSON info for a given litecoin address
 function getLtcAddressInfoJson(address)
 {
 	return getCoinAddressInfoJson("ltc", address)
@@ -63,44 +109,46 @@ function getLtcAddressInfoJson(address)
 function ltcWalletReceived(address)
 {
 	var data = getLtcAddressInfoJson(address)
-	return data.totalreceived;
+	var totalReceived = data.total_received
+	if (0 != totalReceived)
+		totalReceived /= 100000000
+	return totalReceived
 }
 
 // Return the total transactions for a bitcoin address
 function ltcWalletNumTransactions(address)
 {
 	var data = getLtcAddressInfoJson(address)
-	return data.nb_txs;
+	return data.n_tx
 }
 
 // Compute coin earnings. Algorithm from here:
 //	http://www.holynerdvana.com/2014/02/how-to-calculate-coins-per-day-for-any.html
 function computeCoinEarnings(seconds, blockReward, difficulty, hashrate)
 {
-	var reward = (seconds * blockReward * hashrate) / (difficulty * (Math.pow(2, 48) / 0x00000000ffff));
-	return reward;
+	var reward = (seconds * blockReward * hashrate) / (difficulty * (Math.pow(2, 48) / 0x00000000ffff))
+	return reward
 }
 
 // Compute the earnings per day for a given coin
 function earningsPerDay(blockReward, difficulty, hashrate)
 {
-	var earnings = computeCoinEarnings(86400, blockReward, difficulty, hashrate);
-	return earnings;
+	var earnings = computeCoinEarnings(86400, blockReward, difficulty, hashrate)
+	return earnings
 }
 
 // Get the current info on the specified coin to compute the earnings per day
 function coinEarningsPerDay(coin, blockReward, hashrate, hashMultiplier)
 {
 	// Get the last difficulty for coin
-	var data = getCoinInfoJson(coin);
-	var difficulty = data.last_block.difficulty
+	var difficulty = getCoinDifficulty(coin)
 
 	// Compute the total hashrate
-	var totalHashrate = hashrate * hashMultiplier;
+	var totalHashrate = hashrate * hashMultiplier
 
 	// Compute and return the earnings
-	var earnings = earningsPerDay(blockReward, difficulty, totalHashrate);
-	return earnings;
+	var earnings = earningsPerDay(blockReward, difficulty, totalHashrate)
+	return earnings
 }
 
 // Get the BTC earnings per THs per day
@@ -132,8 +180,9 @@ function test()
 
 	Logger.log("btc earnings:" +  btcPerDay)
 	Logger.log("ltc earnings:" +  ltcPerDay)
-	
+	//Browser.msgBox("btc earnings:" +  btcPerDay)
+	//Browser.msgBox("ltc earnings:" +  ltcPerDay)
+
 	// Blocks if Safari popups blocked
 	//Browser.msgBox(received)
 }
-
