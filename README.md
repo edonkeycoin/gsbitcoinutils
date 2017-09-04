@@ -2,6 +2,7 @@
 Cryptocurrency related Javascript utilities that can be used in Google Sheets spreadsheets
 
 ## By edonkey:	June 12, 2017
+## Last update:	September 4, 2017
 ## Donations:  	18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW
 
 
@@ -15,13 +16,15 @@ The script here isn't particularly original. Much of this info can be found by G
 
 ## Recent changes
 
-Originally I tried using the API provided by blockchain.info, because I found a script example using their API. But I started getting errors indicating that the endpoint had been used too much, or something to that effect. So I switched to blockr.io and haven't had a problem.
+Originally I tried using the API provided by blockchain.info, because I found a script example using their API. But I started getting errors indicating that the endpoint had been used too much, or something to that effect. Blockchain.info refused my request for an API key, with no explanation. I guess I'll never be using their service.
 
-But after a while blockr.io became very slow, causing big delays when updating my spreadsheets. Then they stopped updating their data. They closed up shop on September 4, 2017.
+I switched to blockr.io and that worked. But after a while blockr.io became very slow, causing big delays when updating my spreadsheets. Then they stopped updating their data. They closed up shop on September 4, 2017.
 
-The result is that I need a new API. Blockchain.info refused my request for an API key, with no explaination. I guess I'll never be using their service. 
+Next I tried blockcypher.com, but their base limit on the number of requests per second caused errors opening my spreadsheets. Their paid service was too much for my tastes just to bump up this limit. Also they didn't have an easy way to get the coin difficulty (I'd have to make multiple calls and convert from the compressed bits value in the block header myself).
 
-Currently I've moved to blockcypher.com for address information, and a combination of blockexplorer.com and explorer.litecoin.net for obtaining the current difficulty. Hopefully this will last for a while.
+For now I'm changed the script to an object model that uses blockexplorer.com for BTC and explorer.litecoin.net for LTC. This seems to work nicely. Both services are fast and I haven't seen it throttle me yet.
+
+The only drawback is that explorer.litecoin.net doesn't seem to have an API to obtain the number of transactions for an address. For now that function returns 0. I guess I can look into replacing the LTC explorer at some point if getting the number of transactions is important.
 
 ## Installation
 
