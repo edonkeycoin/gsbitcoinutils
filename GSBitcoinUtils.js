@@ -4,6 +4,9 @@
  
  Written by edonkey, June 11, 2017
  
+ 2018-07-24:	GoogleFinance keeps returning an error when attempting to get BTC
+				exchange rates, so I've added functions to get the exchange rate from
+				Coinbase.
  2017-09-04:	Changed to an object model that uses blockexplorer.com for BTC and
 				explorer.litecoin.net for LTC because blockcypher.com limits the
 				number of transactions per second so much that it caused errors
@@ -11,7 +14,7 @@
 				explorer.litecoin.net doesn't seem to have an API to obtain the number
 				of transactions. I guess I can look into replacing the LTC explorer at
 				some point. 
-2017-09-03:	Changed to use blockcypher.com since blockr.io closed.
+ 2017-09-03:	Changed to use blockcypher.com since blockr.io closed.
   
  Donations: 18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW
  */
@@ -44,6 +47,30 @@ function earningsPerDay(blockReward, difficulty, hashrate)
 	return earnings
 }
 
+// Coinbase API object.
+var gCoinbaseApi = 
+{
+	baseUrl: 'https://api.coinbase.com/v2',
+	
+	getUsdExchangeRate: function(cryptoCurrency)
+	{
+		var response = UrlFetchApp.fetch(this.baseUrl + "/exchange-rates")
+		var json = response.getContentText()
+		var parsed = JSON.parse(json)
+		return parsed["data"]["rates"][cryptoCurrency]
+	},
+	
+	getBtcUsdRate: function()
+	{
+		return 1 / this.getUsdExchangeRate('BTC')
+	},
+	
+	getLtcUsdRate: function()
+	{
+		return 1 / this.getUsdExchangeRate('LTC')
+	},
+};
+
 // Bitcoin explorer object. Uses blockexplorer.com under the hood
 var gBitcoinExplorer = 
 {
@@ -65,7 +92,7 @@ var gBitcoinExplorer =
 	getAddressUrl: function(address) 
 	{
 		var url = this.baseUrl + "/addr/" + address
-        return url
+		return url
 	},
 
 	// Download the JSON from the specified URL and parse it
@@ -126,7 +153,7 @@ var gLitecoinExplorer =
 	getAddressUrl: function(address) 
 	{
 		var url = this.baseUrl + "addr/" + address
-        return url
+		return url
 	},
 
 	// Download the JSON from the specified URL and parse it
@@ -264,9 +291,26 @@ function ltcWalletNumTransactions(address)
 	return getCoinWalletNumTransactions(gLitecoin, address)
 }
 
+// Return the current BTC/USD exchange rate
+function getBtcUsdRate()
+{
+	return gCoinbaseApi.getBtcUsdRate()
+}
+
+// Return the current BTC/USD exchange rate
+function getLtcUsdRate()
+{
+	return gCoinbaseApi.getLtcUsdRate()
+}
+
 // Test the above functions
 function test()
 {
+	var btcUsdRate = getBtcUsdRate()
+	var ltcUsdRate = getLtcUsdRate()
+	Logger.log("BTC exchange rate:" +  btcUsdRate)
+	Logger.log("LTC exchange rate:" +  ltcUsdRate)
+
 	var address = "18wQtEDmhur2xAd3oE8qgrZbpCDeuMsdQW"
 
 	var received = walletReceived(address)
@@ -287,4 +331,3 @@ function test()
 	// Blocks if Safari popups blocked
 	//Browser.msgBox(received)
 }
-
