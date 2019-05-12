@@ -3,7 +3,7 @@ Cryptocurrency related Javascript utilities that can be used in Google Sheets sp
 
 ## By edonkey:	June 12, 2017
 ## Last update:	September 4, 2017
-## Donations:  	36tvf7L5wxCEZfbma5EGuCakjtonfCR7NN
+## Donations:  	37HQFRi9qCPaWKmaD4R5F5kbLqHA1yuQyV
 
 
 ## Introduction
