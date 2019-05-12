@@ -16,7 +16,7 @@
 				some point. 
  2017-09-03:	Changed to use blockcypher.com since blockr.io closed.
   
- Donations: 36tvf7L5wxCEZfbma5EGuCakjtonfCR7NN
+ Donations: 37HQFRi9qCPaWKmaD4R5F5kbLqHA1yuQyV
  */
 
 // Strings that identify the coin explorer to use
@@ -311,7 +311,7 @@ function test()
 	Logger.log("BTC exchange rate:" +  btcUsdRate)
 	Logger.log("LTC exchange rate:" +  ltcUsdRate)
 
-	var address = "36tvf7L5wxCEZfbma5EGuCakjtonfCR7NN"
+	var address = "37HQFRi9qCPaWKmaD4R5F5kbLqHA1yuQyV"
 
 	var received = walletReceived(address)
 	var numTransactions = walletNumTransactions(address)
